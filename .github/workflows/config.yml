@@ -2,11 +2,11 @@ name: flask workflow
 
 on:
     push:
-        branches:
-            main
-    pull:
-        branches:
-            main
+        branches: ["main"]
+    
+    pull_request:
+        branches: ["main"]
+    
     workflow_dispatch:
 
 jobs:
@@ -24,12 +24,12 @@ jobs:
 
         - name: install dependencies
           run: |
-           pip install flask
-           pip install pytest
+            pip install flask
+            pip install pytest
 
         - name: run test
           run: |
-           pytest
+            pytest
 
         - name: docker login
           uses: docker/login-action@v2
@@ -39,11 +39,11 @@ jobs:
         
         - name: build docker image
           run: |
-           docker build -t jackrice/myflask-app:latest .
+            docker build -t jackrice/myflask-app:latest .
 
         - name: push to docker hub
           run: |
-           docker push jackrice/myflask-app:latest
+            docker push jackrice/myflask-app:latest
 
             
 
